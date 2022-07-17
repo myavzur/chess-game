@@ -1,0 +1,54 @@
+\:root
+  --cell-size: 64px
+
+* 
+  margin: 0
+  padding: 0
+
+.app 
+  background: url('https://phonoteka.org/uploads/posts/2022-01/1642438786_30-phonoteka-org-p-fon-derevyannii-stol-temnii-krasivo-30.jpg')
+  width: 100vw
+  height: 100vh
+
+  // Center
+  display: flex
+  justify-content: center
+  align-items: center
+
+.board 
+  width: calc(var(--cell-size) * 8)
+  height: calc(var(--cell-size) * 8)
+
+  // Make it rows
+  display: flex
+  flex-wrap: wrap
+  border: 15px solid #fff
+
+.cell 
+  width: var(--cell-size)
+  height: var(--cell-size)
+  
+  // Make figures stay in the center of the cell
+  display: flex
+  justify-content: center
+  align-items: center
+
+  img 
+    width: 48px
+    height: 48px
+    position: relative
+
+  &.black
+    background-color: deepskyblue
+
+  &.white
+    background-color: #eed4ac
+
+  &.selected
+    background-color: brown
+
+.available
+  width: 15px
+  height: 15px
+  border-radius: 100%
+  background-color: #22c022
