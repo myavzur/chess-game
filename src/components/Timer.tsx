@@ -41,13 +41,17 @@ const Timer: React.FC<TimerProps> = ({ currentPlayer, restart }) => {
   }
 
   return (
-    <React.Fragment>
-      <div>
-        <button onClick={handleRestart}>Restart Game</button>
-      </div>
-      <h2>Черные - {blackTime} </h2>
-      <h2>Белые - {whiteTime} </h2>
-    </React.Fragment>
+    <div className="timer">
+      <button className="timer__restart" onClick={handleRestart}>Restart Game</button>
+
+      <p className="timer__player">
+        Черные - <span className="timer__time">{blackTime}</span>
+      </p>
+
+      <p className="timer__player">
+        Белые - <span className="timer__time">{whiteTime}</span>
+      </p>
+    </div>
   )
 }
 

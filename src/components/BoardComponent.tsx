@@ -16,30 +16,42 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
 
   useEffect(() => {
-    highlightCells()
+    const handleEscapeHotkey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { // escape key maps to keycode `27`
+        setSelectedCell(null)
+      }
+    }
+
+    document.addEventListener("keyup", handleEscapeHotkey)
+    return () => {
+      document.removeEventListener("keyup", handleEscapeHotkey)
+    }
+  }, [])
+
+  useEffect(() => {
+    highlightAvailableCells()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCell])
 
   function onClick(cell: Cell) {
-    if (
-      selectedCell && selectedCell !== cell // Not the same cell
-      && 
-      selectedCell.figure?.canMove(cell) // Selected figure can move on target
-    ) {
-      selectedCell.moveFigure(cell) // Move figure on the target
+    const isSameCell = cell === selectedCell
+    const canMoveToCell = selectedCell?.figure?.canMove(cell)
+
+    if (selectedCell && !isSameCell && canMoveToCell) {
+      selectedCell?.moveFigure(cell) // Move figure on the target
       swapPlayer()
       setSelectedCell(null)
     } else {
-      // Can't select black figures if you are white
-      if (cell.figure?.color === currentPlayer?.color) {
-        setSelectedCell(cell)
-      }
+      const canSelectCell = cell.figure?.color === currentPlayer?.color
+      if (!canSelectCell) return
+      setSelectedCell(cell)
     }
-  } 
+  }
 
-  function highlightCells() {
-    board.highlightCells(selectedCell) // Make logic inside of the model...
+  function highlightAvailableCells() {
+    board.highlightAvailableCells(selectedCell) // Make logic inside of the model...
+
     updateBoard() // ...then rerender component to see model changes!
   }
 
@@ -48,7 +60,6 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
     setBoard(newBoard)
   }
 
-  // ! Fragment as wrapper for row of 8 cells
   return (
     <div className="board">
       {board.cells.map((row, index) => (
@@ -58,10 +69,10 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
               key={cell.id}
               cell={cell}
               isSelected={
-                cell.x === selectedCell?.x && cell.y === selectedCell?.y
+                cell.id === selectedCell?.id
               }
               onClick={onClick}
-            />  
+            />
           ))}
         </React.Fragment>
       ))}

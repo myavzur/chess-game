@@ -1,12 +1,15 @@
-\:root
+body
   --cell-size: 64px
 
-* 
+
+*
   margin: 0
   padding: 0
 
-.app 
-  background: url('https://phonoteka.org/uploads/posts/2022-01/1642438786_30-phonoteka-org-p-fon-derevyannii-stol-temnii-krasivo-30.jpg')
+.app
+  font-family: sans-serif
+  background: url('https://picsum.photos/seed/tf/1920/1080') #203928
+  background-size: cover
   width: 100vw
   height: 100vh
 
@@ -15,36 +18,95 @@
   justify-content: center
   align-items: center
 
-.board 
+.game
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  &__connector
+    background-color: #537531
+    height: 25px
+    width: 5px
+
+
+.timer
+  padding: 20px 20px
+  background-color: white
+  border-radius: 15px
+  border: 5px solid #537531
+
+  &__restart
+    margin-bottom: 10px
+    width: 100%
+    padding: 5px
+    background: none
+    border: 2px solid #537531
+    color: #537531
+    border-radius: 5px
+    cursor: pointer
+    transition: background-color 0.3s, color 0.3s
+
+    &:hover
+      background-color: #537531
+      color: white
+
+  &__player
+    margin-top: 10px
+    font-size: 20px
+    font-weight: bold
+    font-style: italic
+
+  &__time
+    font-weight: 100
+    font-style: italic
+    color: #537531
+
+
+.board
   width: calc(var(--cell-size) * 8)
   height: calc(var(--cell-size) * 8)
+  border-radius: 15px
 
   // Make it rows
   display: flex
   flex-wrap: wrap
-  border: 15px solid #fff
+  border: 15px solid #537531
+  box-shadow: -5px 5px 0px #446028, -10px 10px 0 #394f22
 
-.cell 
+.cell
   width: var(--cell-size)
   height: var(--cell-size)
-  
+
   // Make figures stay in the center of the cell
   display: flex
   justify-content: center
   align-items: center
+  transition: transform 0.3s
 
-  img 
-    width: 48px
-    height: 48px
+  img
+    width: calc(var(--cell-size) * 0.65)
+    height: calc(var(--cell-size) * 0.65)
     position: relative
 
   &.black
-    background-color: deepskyblue
+    $devider-line-size: 0.125em;
+    $main-line-size:    0.3125em
+    // background: repeating-linear-gradient(60deg, #797b16 0px, 0.125em, white 0.06em, #546900 0.3125em)
+    background-color: #8e9963
 
   &.white
-    background-color: #eed4ac
+    background-color: #546900
 
   &.selected
+    z-index: 2
+    border-radius: 10px
+    background: green
+    transform: scale(1.2)
+    box-shadow: 0px 0px 15px #181818
+
+  &.can-be-beaten
+    transform: scale(1.1)
+    border-radius: 10px
     background-color: brown
 
 .available
@@ -52,3 +114,4 @@
   height: 15px
   border-radius: 100%
   background-color: #22c022
+  box-shadow: 0px 0px 15px #181818

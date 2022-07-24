@@ -5,15 +5,16 @@ import BoardComponent from 'components/BoardComponent';
 import { Board } from 'models/Board';
 import { Player } from 'models/Player';
 import { Colors } from 'models/Colors';
-import LostFigures from 'components/LostFigures';
 import Timer from 'components/Timer';
 
 const App = () => {
   const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE))
   const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK))
-  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
+  const [currentPlayer, setCurrentPlayer] = useState<Player>(whitePlayer)
 
   const [board, setBoard] = useState(new Board())
+
+  const boardClassName = currentPlayer.color === Colors.BLACK ? 'game__board game__board_rotated' : 'game__board'
 
   useEffect(() => {
     restart()
@@ -28,33 +29,26 @@ const App = () => {
   }
 
   function swapPlayer() {
-    setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer)
+    setCurrentPlayer(currentPlayer.color === Colors.WHITE ? blackPlayer : whitePlayer)
   }
 
   return (
     <div className='app'>
-      <Timer
-        restart={restart}
-        currentPlayer={currentPlayer}
-      />
-      <h3>
-        Current player {currentPlayer?.color}
-      </h3>
-      <BoardComponent
-        board={board}
-        setBoard={setBoard}
-        currentPlayer={currentPlayer}
-        swapPlayer={swapPlayer}
-      />
-      <div>
-        <LostFigures
-          title="Lost Black"
-          figures={board.lostFiguresBlack}
-        />
-        <LostFigures
-          title='Lost White'
-          figures={board.lostFiguresWhite}
-        />
+      <div className="game">
+        <div className="game__timer">
+          <Timer currentPlayer={currentPlayer} restart={restart} />
+        </div>
+
+        <div className="game__connector"></div>
+
+        <div className={boardClassName}>
+          <BoardComponent
+            board={board}
+            setBoard={setBoard}
+            currentPlayer={currentPlayer}
+            swapPlayer={swapPlayer}
+          />
+        </div>
       </div>
     </div>
   );

@@ -5,18 +5,19 @@ interface CellProps {
   cell: Cell;
   isSelected: boolean;
   onClick: (cell: Cell) => void;
+  children?: React.ReactNode;
 }
 
-const CellComponent: React.FC<CellProps> = ({cell, isSelected, onClick, children}) => {
+const CellComponent: React.FC<CellProps> = ({cell, isSelected, onClick}) => {
   return (
-    <div 
+    <div
       onClick={() => onClick(cell)}
       className={[
-        'cell', 
-        cell.color, 
-        isSelected ? 'selected' : '' 
+        'cell',
+        cell.color,
+        isSelected ? 'selected' : '',
+        cell.isAvailable && cell.figure ? "can-be-beaten" : ""
       ].join(' ')}
-      style={{backgroundColor: cell.isAvailable && cell.figure ? 'green' : ''}} // Can I beat opponent figure on this cell?
     >
       {cell.isAvailable && !cell.figure && <div className="available"></div>}
       {cell.figure?.logo && <img src={cell.figure.logo} alt={cell.figure.name}/>}

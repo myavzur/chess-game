@@ -9,14 +9,16 @@ import { Queen } from "./figures/Queen";
 import { Rook } from "./figures/Rook";
 
 export class Board {
-  cells: Cell[][] = [] // 8 colums with rows
-  lostFiguresBlack: Figure[] = []
-  lostFiguresWhite: Figure[] = []
+  cells: Cell[][] = [] // 8 columns with rows
+  lostFigures = {
+    black: [] as Figure[],
+    white: [] as Figure[]
+  }
 
   addLostFigures(figure: Figure) {
-    figure.color === Colors.BLACK 
-      ? this.lostFiguresBlack.push(figure)
-      : this.lostFiguresWhite.push(figure)
+    figure.color === Colors.BLACK
+      ? this.lostFigures.black.push(figure)
+      : this.lostFigures.white.push(figure)
   }
 
   /** Makes board. No figures. For default chess, use board.addFigures. */
@@ -29,7 +31,7 @@ export class Board {
       for (let x = 0; x < 8; x++) {
         if ((y + x) % 2 !== 0) {
           row.push(new Cell(x, y, Colors.BLACK, null, this)) // Black
-        } 
+        }
         else {
           row.push(new Cell(x, y, Colors.WHITE, null, this)) // White
         }
@@ -41,17 +43,18 @@ export class Board {
     console.log(this.cells)
   }
 
-  /** Use this method for rerenders after board's model changes (such as board.highlightCells). */
+  /** Use this method for rerenders after board's model changes (such as board.highlightAvailableCells). */
   public getBoardCopy(): Board {
     const newBoard = new Board()
-    newBoard.cells = this.cells
-    newBoard.lostFiguresBlack = this.lostFiguresBlack
-    newBoard.lostFiguresWhite = this.lostFiguresWhite
+
+    newBoard.cells       = [...this.cells]
+    newBoard.lostFigures = {...this.lostFigures}
+
     return newBoard
   }
 
   /** Highlights cells (changes their "isAvailable" property) into which selected figure can move to. */
-  public highlightCells(selectedCell: Cell | null) {
+  public highlightAvailableCells(selectedCell: Cell | null) {
     for (let y = 0; y < this.cells.length; y++) {
       const row = this.cells[y]
 
