@@ -33,29 +33,12 @@ const App = () => {
 
   return (
     <div className='app'>
-      <Timer
-        restart={restart}
-        currentPlayer={currentPlayer}
-      />
-      <h3>
-        Current player {currentPlayer?.color}
-      </h3>
       <BoardComponent
         board={board}
         setBoard={setBoard}
         currentPlayer={currentPlayer}
         swapPlayer={swapPlayer}
       />
-      <div>
-        <LostFigures
-          title="Lost Black"
-          figures={board.lostFiguresBlack}
-        />
-        <LostFigures
-          title='Lost White'
-          figures={board.lostFiguresWhite}
-        />
-      </div>
     </div>
   );
 };

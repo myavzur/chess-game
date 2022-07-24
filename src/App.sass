@@ -6,7 +6,7 @@
   padding: 0
 
 .app 
-  background: url('https://phonoteka.org/uploads/posts/2022-01/1642438786_30-phonoteka-org-p-fon-derevyannii-stol-temnii-krasivo-30.jpg')
+  background: url('https://picsum.photos/seed/tf/1920/1080')
   width: 100vw
   height: 100vh
 
@@ -22,7 +22,7 @@
   // Make it rows
   display: flex
   flex-wrap: wrap
-  border: 15px solid #fff
+  border: 15px solid black
 
 .cell 
   width: var(--cell-size)
@@ -39,10 +39,12 @@
     position: relative
 
   &.black
-    background-color: deepskyblue
+    $devider-line-size: 0.125em;
+    $main-line-size:    0.3125em
+    background: repeating-linear-gradient(60deg, black 0px, $devider-line-size, white 0.06em, white $main-line-size)
 
   &.white
-    background-color: #eed4ac
+    background-color: white
 
   &.selected
     background-color: brown

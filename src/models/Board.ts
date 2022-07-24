@@ -10,13 +10,15 @@ import { Rook } from "./figures/Rook";
 
 export class Board {
   cells: Cell[][] = [] // 8 colums with rows
-  lostFiguresBlack: Figure[] = []
-  lostFiguresWhite: Figure[] = []
+  lostFigures: { black: Figure[]; white: Figure[] } = {
+    black: [], 
+    white: []
+  }
 
   addLostFigures(figure: Figure) {
     figure.color === Colors.BLACK 
-      ? this.lostFiguresBlack.push(figure)
-      : this.lostFiguresWhite.push(figure)
+      ? this.lostFigures.black.push(figure)
+      : this.lostFigures.white.push(figure)
   }
 
   /** Makes board. No figures. For default chess, use board.addFigures. */
@@ -45,8 +47,8 @@ export class Board {
   public getBoardCopy(): Board {
     const newBoard = new Board()
     newBoard.cells = this.cells
-    newBoard.lostFiguresBlack = this.lostFiguresBlack
-    newBoard.lostFiguresWhite = this.lostFiguresWhite
+    newBoard.lostFigures.black = this.lostFigures.black
+    newBoard.lostFigures.white = this.lostFigures.white
     return newBoard
   }
 
