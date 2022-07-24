@@ -6,7 +6,8 @@
   padding: 0
 
 .app 
-  background: url('https://picsum.photos/seed/tf/1920/1080')
+  background: url('https://picsum.photos/seed/tf/1920/1080') 
+  background-size: cover
   width: 100vw
   height: 100vh
 
@@ -34,8 +35,8 @@
   align-items: center
 
   img 
-    width: 48px
-    height: 48px
+    width: calc(var(--cell-size) * 0.65)
+    height: calc(var(--cell-size) * 0.65)
     position: relative
 
   &.black
