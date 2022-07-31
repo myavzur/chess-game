@@ -10,9 +10,9 @@ import { Rook } from "./figures/Rook";
 
 export class Board {
   cells: Cell[][] = [] // 8 colums with rows
-  lostFigures: { black: Figure[]; white: Figure[] } = {
-    black: [], 
-    white: []
+  lostFigures = {
+    black: [] as Figure[], 
+    white: [] as Figure[]
   }
 
   addLostFigures(figure: Figure) {
@@ -43,17 +43,18 @@ export class Board {
     console.log(this.cells)
   }
 
-  /** Use this method for rerenders after board's model changes (such as board.highlightCells). */
+  /** Use this method for rerenders after board's model changes (such as board.highlightAvailableCells). */
   public getBoardCopy(): Board {
     const newBoard = new Board()
-    newBoard.cells = this.cells
-    newBoard.lostFigures.black = this.lostFigures.black
-    newBoard.lostFigures.white = this.lostFigures.white
+    
+    newBoard.cells       = {...this.cells}
+    newBoard.lostFigures = {...this.lostFigures}
+
     return newBoard
   }
 
   /** Highlights cells (changes their "isAvailable" property) into which selected figure can move to. */
-  public highlightCells(selectedCell: Cell | null) {
+  public highlightAvailableCells(selectedCell: Cell | null) {
     for (let y = 0; y < this.cells.length; y++) {
       const row = this.cells[y]
 

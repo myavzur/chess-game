@@ -77,6 +77,7 @@ export class Cell {
 
     if (absY !== absX) return false // Not diagonal
 
+    // Up or Down, Left or Right 
     const directionY = this.y < target.y ? 1 : -1
     const directionX = this.x < target.x ? 1 : -1
 

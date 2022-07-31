@@ -16,7 +16,7 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
 
   useEffect(() => {
-    highlightCells()
+    highlightAvailableCells()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCell])
@@ -38,8 +38,9 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
     }
   } 
 
-  function highlightCells() {
-    board.highlightCells(selectedCell) // Make logic inside of the model...
+  function highlightAvailableCells() {
+    board.highlightAvailableCells(selectedCell) // Make logic inside of the model...
+    
     updateBoard() // ...then rerender component to see model changes!
   }
 
