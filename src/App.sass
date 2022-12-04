@@ -6,7 +6,7 @@
   padding: 0
 
 .app 
-  background: url('https://picsum.photos/seed/tf/1920/1080') 
+  background: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1614262924_74-p-chernaya-kirpichnaya-stena-fon-83.jpg') 
   background-size: cover
   width: 100vw
   height: 100vh
@@ -34,6 +34,12 @@
   justify-content: center
   align-items: center
 
+  outline-color: rgba(0,0,0,0)
+  outline-style: solid
+  outline-width: 5px
+  outline-offset: -4px
+  transition: 0.3s all
+
   img 
     width: calc(var(--cell-size) * 0.65)
     height: calc(var(--cell-size) * 0.65)
@@ -45,10 +51,11 @@
     background: repeating-linear-gradient(60deg, black 0px, $devider-line-size, white 0.06em, white $main-line-size)
 
   &.white
-    background-color: white
+    background-color: #424242
 
   &.selected
-    background-color: brown
+    z-index: 100
+    outline-color: green
 
 .available
   width: 15px

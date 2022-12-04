@@ -39,15 +39,13 @@ export class Board {
 
       this.cells.push(row)
     }
-
-    console.log(this.cells)
   }
 
   /** Use this method for rerenders after board's model changes (such as board.highlightAvailableCells). */
   public getBoardCopy(): Board {
     const newBoard = new Board()
     
-    newBoard.cells       = {...this.cells}
+    newBoard.cells       = [...this.cells]
     newBoard.lostFigures = {...this.lostFigures}
 
     return newBoard
