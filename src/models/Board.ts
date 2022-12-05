@@ -59,6 +59,7 @@ export class Board {
       for (let x = 0; x < row.length; x++) {
         const target = row[x]
         target.isAvailable = !!selectedCell?.figure?.canMove(target) // Boolean
+        target.isEnemyOnCell = !!selectedCell?.isEnemy(target)
       }
     }
   }

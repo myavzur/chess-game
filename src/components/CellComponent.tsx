@@ -7,7 +7,7 @@ interface CellProps {
   onClick: (cell: Cell) => void;
 }
 
-const CellComponent: React.FC<CellProps> = ({cell, isSelected, onClick, children}) => {
+const CellComponent: React.FC<CellProps> = ({cell, isSelected, onClick }) => {
   return (
     <div 
       onClick={() => onClick(cell)}

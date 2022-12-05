@@ -1,45 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import './App.sass'
 import BoardComponent from 'components/BoardComponent';
 import { Board } from 'models/Board';
 import { Player } from 'models/Player';
 import { Colors } from 'models/Colors';
-import LostFigures from 'components/LostFigures';
 import Timer from 'components/Timer';
+import Chess from 'components/Chess';
 
 const App = () => {
-  const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE))
-  const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK))
+  const [whitePlayer] = useState(new Player(Colors.WHITE))
+  const [blackPlayer] = useState(new Player(Colors.BLACK))
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
 
   const [board, setBoard] = useState(new Board())
 
-  useEffect(() => {
-    restart()
-  }, [])
-
-  function restart() {
+  const swapPlayer = useCallback(() => {
+    setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer)
+  }, [whitePlayer, blackPlayer, currentPlayer])
+  
+  const restart = useCallback(() => {
     const newBoard = new Board()
     newBoard.initCells()
     newBoard.addFigures()
     setBoard(newBoard)
     setCurrentPlayer(whitePlayer)
-  }
+  }, [whitePlayer])
 
-  function swapPlayer() {
-    setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer)
-  }
+  useEffect(() => {
+    restart()
+  }, [restart])
 
   return (
-    <div className='app'>
-      <BoardComponent
-        board={board}
-        setBoard={setBoard}
-        currentPlayer={currentPlayer}
-        swapPlayer={swapPlayer}
-      />
-    </div>
+    // <div className='app'>
+    //   <BoardComponent
+    //     board={board}
+    //     setBoard={setBoard}
+    //     currentPlayer={currentPlayer}
+    //     swapPlayer={swapPlayer}
+    //   />
+    //   <Timer
+    //     currentPlayer={currentPlayer}
+    //     restart={restart}
+    //   />
+    // </div>
+    <Chess/>
   );
 };
 

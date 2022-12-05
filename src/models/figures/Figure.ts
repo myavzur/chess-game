@@ -17,16 +17,20 @@ export class Figure {
   id: number // For React keys
   name: FigureNames;
   color: Colors;
-  logo: typeof logo | null;
+  logo: typeof logo | null;  
+  Model: React.FC | null;
+
   cell: Cell;
 
   constructor(color: Colors, cell: Cell) {
+    this.id   = Math.random()
+    this.name = FigureNames.FIGURE;
     this.color = color;
+    this.logo = null;
+    this.Model = null
+
     this.cell  = cell;
     this.cell.figure = this; 
-    this.logo = null;
-    this.name = FigureNames.FIGURE;
-    this.id   = Math.random()
   } 
 
   moveFigure(target: Cell) {}

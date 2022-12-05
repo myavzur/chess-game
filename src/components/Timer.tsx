@@ -27,7 +27,9 @@ const Timer: React.FC<TimerProps> = ({ currentPlayer, restart }) => {
   }
 
   function decrBlackTimer() {
-    setBlackTime(prev => prev - 1)
+    if (blackTime > 0) {
+      setBlackTime(prev => prev - 1)
+    }
   }
 
   function decrWhiteTimer() {

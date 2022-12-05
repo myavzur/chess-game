@@ -13,6 +13,7 @@ export class Cell {
   board: Board;
   /** Determines whether the selected figure can move to this cell. (empty cell, no figures here) */
   isAvailable: boolean;
+  isEnemyOnCell: boolean;
 
   constructor(x: number, y: number, color: Colors, figure: Figure | null, board: Board) {
     this.x = x
@@ -21,6 +22,7 @@ export class Cell {
     this.figure = figure
     this.board  = board
     this.isAvailable = false
+    this.isEnemyOnCell = false
     this.id = Math.random()
   }
 

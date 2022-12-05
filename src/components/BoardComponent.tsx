@@ -23,7 +23,7 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
 
   function onClick(cell: Cell) {
     if (
-      selectedCell && selectedCell !== cell // Not the same cell
+      selectedCell && (selectedCell !== cell) // Not the same cell
       && 
       selectedCell.figure?.canMove(cell) // Selected figure can move on target
     ) {
@@ -49,7 +49,6 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
     setBoard(newBoard)
   }
 
-  // ! Fragment as wrapper for row of 8 cells
   return (
     <div className="board">
       {board.cells.map((row, index) => (
@@ -59,7 +58,7 @@ const BoardComponent: React.FC<BoardProps> = ({board, setBoard, currentPlayer, s
               key={cell.id}
               cell={cell}
               isSelected={
-                cell.x === selectedCell?.x && cell.y === selectedCell?.y
+                (selectedCell?.x === cell.x) && (selectedCell?.y === cell.y)
               }
               onClick={onClick}
             />  
